@@ -5,9 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>김현진 | Data-Driven CRM Marketer</title>
+    <!-- SEO & Open Graph -->
+    <meta name="description" content="데이터로 비즈니스 성장을 이끄는 CRM 마케터 김현진의 포트폴리오입니다.">
+    <meta property="og:title" content="김현진 | Data-Driven CRM Marketer">
+    <meta property="og:description" content="ROAS 최적화, 퍼널 개선, CRM 자동화 기획 포트폴리오">
+    <meta property="og:image" content="profile.jpg">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
+        /* --- Smooth Scroll & Anchor Offset --- */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
         /* --- Premium CRM Marketer V3 --- */
         :root {
             --black: #0f172a;
@@ -154,6 +166,13 @@
         strong {
             color: var(--white);
             font-weight: 700;
+        }
+
+        /* Highlight: key metrics (ROAS, CTR, CVR etc.) */
+        .highlight {
+            color: var(--wave-color);
+            font-weight: 900;
+            border-bottom: 2px solid rgba(16, 185, 129, 0.4);
         }
 
         /* Tech Stack & Resume Tags */
@@ -601,7 +620,17 @@
             }
 
             nav {
-                display: none;
+                width: 100%;
+                margin-top: 15px;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 10px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            nav ul {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
             }
 
             .resume-tags {
@@ -707,8 +736,9 @@
                     <p>
                         운영 중이던 데일리 캠페인의 피로도를 감지하고, 데이터를 바탕으로 정밀한 타겟 세그먼트와 소재 변경을 포함한 <strong>동시다발적 A/B 테스트</strong>를
                         기획·실행했습니다.
-                        테스트 결과 적용 후 과거 캠페인 대비 <strong>클릭률(CTR) 0.9%p 상승, 전환율(CVR) 3.1%p 상승, 그리고 ROAS 965%p
-                            개선</strong>이라는 실질적인 퍼포먼스 상향 평준화를 이끌어냈습니다.
+                        테스트 결과 적용 후 과거 캠페인 대비 <span class="highlight">클릭률(CTR) 0.9%p 상승</span>, <span
+                            class="highlight">전환율(CVR) 3.1%p 상승</span>, 그리고 <span class="highlight">ROAS 965%p
+                            개선</span>이라는 실질적인 퍼포먼스 상향 평준화를 이끌어냈습니다.
                     </p>
                 </div>
                 <div class="snap-image" onclick="openModal(this)">
@@ -1004,14 +1034,10 @@
 
         function openModal(element) {
             const img = element.tagName === 'IMG' ? element : element.querySelector('img');
-            const textElement = element.querySelector('.gallery-caption') || element.nextElementSibling;
-            let caption = '';
+            const textElement = element.querySelector('.gallery-caption');
 
-            if (textElement && textElement.className.includes('caption')) {
-                caption = textElement.innerText;
-            } else if (img && img.alt) {
-                caption = img.alt;
-            }
+            // alt 속성 1순위, caption textContent 2순위 (display:none 안전 처리)
+            let caption = (img && img.alt) ? img.alt : (textElement ? textElement.textContent.trim() : '');
 
             if (img) {
                 lightbox.classList.add('show');
